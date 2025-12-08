@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IoT Platform</title>
-    <link rel="stylesheet" href="iot1.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="header">
@@ -25,7 +25,7 @@
         <img src="icons/battery-icon.png" alt="" class="battery-icon" />
         <div class="battery-level">
           <h3>Battery</h3>
-          <p>90%</p>
+          <p><span id="battery">-</span> %</p>
         </div>
       </div>
 
@@ -33,7 +33,7 @@
         <img src="icons/volume-icon.png" alt="" class="battery-icon" />
         <div class="volume-level">
           <h3>Volume</h3>
-          <p>1LT</p>
+          <p><span id="volume">-</span> LT</p>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
         <img src="icons/speed-icon.png" alt="" class="battery-icon" />
         <div class="speed-level">
           <h3>Speed</h3>
-          <p>240rpm</p>
+          <p><span id="speed">-</span> RPM</p>
         </div>
       </div>
 
@@ -51,14 +51,21 @@
         <img src="icons/wifi-icon.png" alt="" class="battery-icon" />
         <div class="wifi-strength">
           <h3>Signal</h3>
-          <p>Strong</p>
+          <p>...</p>
         </div>
       </div>
     </div>
 
     <div class="speed-control">
       <label for="speed"></label>
-      <input type="range" min="0" max="100" id="speed" class="speed" />
+      <input
+        type="range"
+        min="0"
+        max="100"
+        id="speed"
+        class="speed"
+        value="50"
+      />
       <div id="speed-labels">
         <p>Slow</p>
         <p>Fast</p>
@@ -69,15 +76,15 @@
       <p>Movement Control</p>
       <br />
       <div class="control">
-        <button><img src="icons/arrow-up.png" alt="" /></button>
+        <button id="forward"><img src="icons/arrow-up.png" alt="" /></button>
 
         <div class="middle-row">
-          <button><img src="icons/arrow-left.png" alt="" /></button>
-          <button><img src="icons/center.png" alt="" /></button>
-          <button><img src="icons/arrow-right.png" alt="" /></button>
+          <button id="left"><img src="icons/arrow-left.png" alt="" /></button>
+          <button id="spray"><img src="icons/center.png" alt="" /></button>
+          <button id="right"><img src="icons/arrow-right.png" alt="" /></button>
         </div>
 
-        <button><img src="icons/arrow-down.png" alt="" /></button>
+        <button id="backward"><img src="icons/arrow-down.png" alt="" /></button>
       </div>
     </div>
   </body>
