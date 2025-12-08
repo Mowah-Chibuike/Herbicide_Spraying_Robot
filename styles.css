@@ -126,7 +126,7 @@ video {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 2rem;
 }
 
 button {
@@ -142,4 +142,11 @@ button {
 
 button:hover {
   background-color: #4da3ff;
+}
+
+.middle-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
