@@ -16,16 +16,17 @@
       </div>
     </div>
 
-    <video class="" controls muted autoplay>
-      <source src="The Learning Pyramid.mp4" type="video/mp4" />
-    </video>
+    <div class="video">
+      <img id="stream" src="" />
+      <p class="cam-status disconnected">Camera: Disconnected</p>
+    </div>
 
     <div class="contain">
       <div class="battery">
         <img src="icons/battery-icon.png" alt="" class="battery-icon" />
         <div class="battery-level">
           <h3>Battery</h3>
-          <p><span id="battery">-</span> %</p>
+          <p><span id="battery">...</span> %</p>
         </div>
       </div>
 
@@ -33,7 +34,7 @@
         <img src="icons/volume-icon.png" alt="" class="battery-icon" />
         <div class="volume-level">
           <h3>Volume</h3>
-          <p><span id="volume">-</span> %</p>
+          <p><span id="volume">...</span> %</p>
         </div>
       </div>
     </div>
@@ -43,7 +44,7 @@
         <img src="icons/speed-icon.png" alt="" class="battery-icon" />
         <div class="speed-level">
           <h3>Speed</h3>
-          <p><span id="speed-value">-</span> RPM</p>
+          <p><span id="speed">...</span> RPM</p>
         </div>
       </div>
 
@@ -51,18 +52,18 @@
         <img src="icons/wifi-icon.png" alt="" class="battery-icon" />
         <div class="wifi-strength">
           <h3>Signal</h3>
-          <p>...</p>
+          <p id="signal">...</p>
         </div>
       </div>
     </div>
 
     <div class="speed-control">
-      <label for="speed"></label>
+      <label for="speed-ctrl"></label>
       <input
         type="range"
         min="0"
         max="100"
-        id="speed"
+        id="speed-ctrl"
         class="speed"
         value="50"
       />
