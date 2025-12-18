@@ -1,0 +1,77 @@
+{
+  "name": "Herbicide Spraying Robot",
+  "short_name": "MTE 403",
+  "icons": [
+    {
+      "src": "./icons/arrow-down.png",
+      "sizes": "15x15",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/arrow-left.png",
+      "sizes": "15x15",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/arrow-right.png",
+      "sizes": "15x15",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/arrow-up.png",
+      "sizes": "15x15",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/battery-icon.png",
+      "sizes": "15x15",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/center.png",
+      "sizes": "15x15",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/hotspot-icon.png",
+      "sizes": "15x15",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/speed-icon.png",
+      "sizes": "15x15",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/speed2-icon.png",
+      "sizes": "15x15",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/volume-icon.png",
+      "sizes": "15x15",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/wifi-icon.png",
+      "sizes": "15x15",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "/Herbicide_Spraying_Robot/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
