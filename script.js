@@ -6,6 +6,9 @@ const backward = document.getElementById("backward");
 const btnArray = document.querySelectorAll("button");
 const stream = document.getElementById("stream");
 const camStatus = document.querySelector(".cam-status");
+const speedCtrl = document.querySelector("#speed-ctrl");
+const signalStatus = document.getElementById("signal");
+const speedStatus = document.getElementById("speed");
 
 let gateway = "ws://main-robot.local/ws";
 let websocket;
@@ -68,12 +71,14 @@ function onOpen(event) {
   console.log("Connection opened");
   isConnected = true;
   getReadings();
+  signalStatus.innerHTML = "Connected";
 }
 
 function onClose(event) {
   console.log("Connection closed");
   if (isConnected) {
     clearReadings();
+
     isConnected = false;
   }
   setTimeout(initWebSocket, 2000);
@@ -107,44 +112,52 @@ function clearReadings() {
   document.getElementById("volume").innerHTML = "...";
   document.getElementById("speed").innerHTML = "...";
   document.getElementById("signal").innerHTML = "...";
+  signalStatus.innerHTML = "Disconnected";
 }
 
 function getReadings() {
-  websocket.send("getReadings");
+  if (isConnected) websocket.send("getReadings");
 }
 
 forward.addEventListener("mousedown", (event) => {
-  websocket.send("forward");
+  if (isConnected) websocket.send("forward");
   console.log(event);
 });
 
 left.addEventListener("mousedown", () => {
-  websocket.send("left");
+  if (isConnected) websocket.send("left");
 });
 
 spray.addEventListener("mousedown", () => {
-  websocket.send("spray");
+  if (isConnected) websocket.send("spray");
 });
 
 right.addEventListener("mousedown", () => {
-  websocket.send("right");
+  if (isConnected) websocket.send("right");
 });
 
 backward.addEventListener("mousedown", () => {
-  websocket.send("backward");
+  if (isConnected) websocket.send("backward");
+});
+
+speedCtrl.addEventListener("change", () => {
+  if (isConnected) websocket.send("speedVal:" + speedCtrl.value);
+  speedStatus.innerHTML = speedCtrl.value;
 });
 
 btnArray.forEach((item) => {
   if (item.id !== "spray") {
     item.addEventListener("mouseup", (event) => {
-      console.log(event);
-      websocket.send("stop");
+      if (isConnected) {
+        console.log(event);
+        websocket.send("stop");
+      }
     });
   }
 });
 
 spray.addEventListener("mouseup", () => {
-  websocket.send("stop-spray");
+  if (isConnected) websocket.send("stop-spray");
 });
 
 setInterval(() => {

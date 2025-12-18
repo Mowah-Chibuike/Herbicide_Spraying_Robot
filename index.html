@@ -26,7 +26,7 @@
         <img src="icons/battery-icon.png" alt="" class="battery-icon" />
         <div class="battery-level">
           <h3>Battery</h3>
-          <p><span id="battery">...</span> %</p>
+          <p><span id="battery">...</span> V</p>
         </div>
       </div>
 
@@ -44,7 +44,7 @@
         <img src="icons/speed-icon.png" alt="" class="battery-icon" />
         <div class="speed-level">
           <h3>Speed</h3>
-          <p><span id="speed">...</span> RPM</p>
+          <p><span id="speed">50</span> %</p>
         </div>
       </div>
 
@@ -52,7 +52,7 @@
         <img src="icons/wifi-icon.png" alt="" class="battery-icon" />
         <div class="wifi-strength">
           <h3>Signal</h3>
-          <p id="signal">...</p>
+          <p id="signal">Disconnected</p>
         </div>
       </div>
     </div>
@@ -90,4 +90,11 @@
     </div>
   </body>
   <script src="script.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js");
+      });
+    }
+  </script>
 </html>
