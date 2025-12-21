@@ -9,6 +9,8 @@ const camStatus = document.querySelector(".cam-status");
 const speedCtrl = document.querySelector("#speed-ctrl");
 const signalStatus = document.getElementById("signal");
 const speedStatus = document.getElementById("speed");
+const latencyEl = document.getElementById("latency");
+let lastPingTime = 0;
 
 let gateway = "ws://main-robot.local/ws";
 let websocket;
@@ -86,6 +88,16 @@ function onClose(event) {
 
 function onMessage(event) {
   const data = JSON.parse(event.data);
+
+  if (data.type === "pong") {
+    const rtt = performance.now() - data.t;
+    latencyEl.textContent = rtt.toFixed(1);
+
+    latencyEl.style.color = rtt < 20 ? "lime" : rtt < 50 ? "orange" : "red";
+
+    return;
+  }
+
   const keys = Object.keys(data);
 
   keys.forEach((key) => {
@@ -162,6 +174,12 @@ spray.addEventListener("mouseup", () => {
 
 setInterval(() => {
   if (websocket.readyState === WebSocket.OPEN) {
-    websocket.send("ping");
+    lastPingTime = performance.now();
+    websocket.send(
+      JSON.stringify({
+        type: "ping",
+        t: lastPingTime,
+      })
+    );
   }
-}, 5000);
+}, 1000);
