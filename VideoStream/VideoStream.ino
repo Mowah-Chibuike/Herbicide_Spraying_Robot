@@ -1,12 +1,5 @@
 #include "VideoStream.h"
 
-char ssid[32];
-char password[64];
-
-esp_packet_t packet;
-bool wifiReady = false;
-uint8_t senderMac[6];
-
 #define PART_BOUNDARY "123456789000000000000987654321"
 #define CAMERA_MODEL_AI_THINKER
 
@@ -107,8 +100,6 @@ static esp_err_t stream_handler(httpd_req_t *req){
     return res;
   }
 
-  httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
-
   while(true){
     fb = esp_camera_fb_get();
     if (!fb) {
@@ -151,7 +142,7 @@ static esp_err_t stream_handler(httpd_req_t *req){
     if(res != ESP_OK){
       break;
     }
-    vTaskDelay(10 / portTICK_PERIOD_MS);
+    vTaskDelay(30 / portTICK_PERIOD_MS);
     //Serial.printf("MJPG: %uB\n",(uint32_t)(_jpg_buf_len));
   }
   return res;
@@ -174,32 +165,6 @@ void startCameraServer(){
   }
 }
 
-void onReceiveESPNOW(const uint8_t *mac, const uint8_t *incomingData, int len) {
-  memcpy(&packet, incomingData, sizeof(packet));
-  memcpy(senderMac, mac, 6);
-
-  if (packet.type == MSG_CREDS) {
-    memcpy(ssid, packet.ssid, 32);
-    memcpy(password, packet.password, 64);
-    WiFi.begin(packet.ssid, packet.password);
-
-    unsigned long start = millis();
-    while ((WiFi.status() != WL_CONNECTED) && millis() - start < 15000) {
-      delay(500);
-    }
-
-    esp_packet_t reply;
-
-    if (WiFi.status() == WL_CONNECTED) {
-      reply.type = MSG_ACK_OK;
-      wifiReady = true;
-    } else {
-      reply.type = MSG_ACK_FAIL;
-    }
-
-    esp_now_send(senderMac, (uint8_t *)&reply, sizeof(reply));
-  }
-}
 
 void setup() {
   WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); //disable brownout detector
@@ -246,24 +211,16 @@ void setup() {
     return;
   }
   // Wi-Fi connection
-  // WiFi.begin(ssid, password);
-  // while (WiFi.status() != WL_CONNECTED) {
-  //   delay(500);
-  //   Serial.print(".");
-  // }
-  WiFi.mode(WIFI_STA);
-  WiFi.disconnect();
-  esp_now_init();
-  esp_now_register_recv_cb(onReceiveESPNOW);
-
-  while (!wifiReady) {
-    delay(100);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
   }
   Serial.println("");
   Serial.println("WiFi connected");
   
   Serial.print("Camera Stream Ready! Go to: http://");
-  Serial.print(WiFi.localIP());
+  Serial.println(WiFi.localIP());
 
   if (!MDNS.begin("live-stream")) { // Connect to http://main-robot.local 
     Serial.println("Error setting up MDNS responder!");

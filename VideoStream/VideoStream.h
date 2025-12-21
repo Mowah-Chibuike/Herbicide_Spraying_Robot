@@ -13,16 +13,7 @@
 #include <ESPmDNS.h>
 #include <esp_now.h>
 
-typedef enum {
-  MSG_CREDS,
-  MSG_ACK_OK,
-  MSG_ACK_FAIL
-} msg_type_t;
+const char ssid[] = "Herbicide Spraying Robot";
+const char password[] = "password123";
 
-typedef struct {
-  msg_type_t type;
-  char ssid[32];
-  char password[64];
-} esp_packet_t;
-
-#endif
+#endif /* VIDEO_STREAM_H */
